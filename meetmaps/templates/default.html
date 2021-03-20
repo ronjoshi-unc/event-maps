@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Interactive maps for Django web apps</title>
+    <title>{% block pagetitle %}{% endblock %}</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
   </head>
   <body>
-   <h1>Map time!</h1>
-   <div id='map' style='width: 100%; height: 400px;'></div>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia21nb3ZpbmQiLCJhIjoiY2ttaHZ2c2k1MGJkaDJ3cW90dzhzcDl3ZyJ9.8gnW35BhS9WSZaCBTOJ1IQ';
-    var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
-    center: [-78.65, 35.85],
-    zoom: 9
-    });
-    </script>
+
+  <!-- Webpage Header -->
+
+  <!-- Webpage Header end -->
+
+
+  <!-- Nest Templates -->
+   {% block content %}
+   {% endblock %}
+  <!-- End Nest -->
+
+  <!-- Footer -->
+  <!-- End Footer -->
+
   </body>
 </html>
