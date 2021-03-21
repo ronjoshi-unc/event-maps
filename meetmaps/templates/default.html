@@ -10,9 +10,25 @@
   <!-- Webpage Header -->
 
   <!-- Webpage Header end -->
+  {% if user.is_authenticated %}
+    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">{{ user.last_name }}</span></div>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right">
+      <!-- <a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
+      <a class="dropdown-item" href="#"><i class="feather icon-check-square"></i> Task</a>
+      <a class="dropdown-item" href="#"><i class="feather icon-message-square"></i> Chats</a> -->
+      <!-- <div class="dropdown-divider"></div> -->
+      <a class="dropdown-item" href="{% url 'logout' %}"><i class="feather icon-power"></i> Logout</a>
+    </div>
+    {% else %}
+      <div class="user-nav d-sm-flex d-none"><a class="user-name text-bold-600" href= "{% url 'login' %}">Login</a>
+      <!-- </a> -->
+    {% endif %}
+
 
 
   <!-- Nest Templates -->
+  <a href="/map/">Map</a>
    {% block content %}
    {% endblock %}
   <!-- End Nest -->
