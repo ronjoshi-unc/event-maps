@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from notifications.base.models import AbstractNotification
+#from notifications.base.models import AbstractNotification
 from datetime import date
-from taggit.managers import TaggableManager
+#from taggit.managers import TaggableManager
 import geocoder
 
 # Create your models here.
@@ -32,7 +32,7 @@ class Event(models.Model):
     time = models.DateField()
     location_name = models.CharField(max_length=50, default="")
     description = models.CharField(max_length = 1500)
-    host = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    host = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     address = models.TextField(default="")
     location_lat = models.FloatField(blank=True, null=True)
     location_long = models.FloatField(blank=True, null=True)
