@@ -43,5 +43,3 @@ class Event(models.Model):
         self.location_lat = g[0]
         self.location_long = g[1]
         return super(Event, self).save(*args, **kwargs)
-
-
