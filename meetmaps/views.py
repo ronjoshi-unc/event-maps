@@ -41,7 +41,9 @@ def map(request):
     if request.method == "POST":
         eventCreationForm = EventCreationForm(request.POST)
         if eventCreationForm.is_valid():
-            created = eventCreationForm.save()
+            created = eventCreationForm.save(commit=False)
+            created.host = request.user.customuser
+            created.save()
         return redirect('/map')  
     else:
         eventCreationForm = EventCreationForm()

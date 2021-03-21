@@ -32,3 +32,8 @@ class EventCreationForm(forms.ModelForm):
         model = Event
         fields = ['title', 'time', 'location_name',
             'description', 'address']
+
+class EventDeletionForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields =[]

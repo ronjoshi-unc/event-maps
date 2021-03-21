@@ -43,6 +43,7 @@
 </fieldset> -->
 
 <div id="replaceable-content" class="row match-height">
+  {% if user.is_authenticated%}
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
@@ -54,6 +55,7 @@
             <button class="btn btn-primary mr-1 mb-1 waves-effect waves-light" type="submit">Register</button>
         </div>
     </form>
+  {% endif %}
     {% if events %}
     {% for event in events %}
     <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
@@ -72,7 +74,7 @@
     {% endfor %}
     {% else %}
     <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
-        <p>Matching event Not Found</p>
+        <p>No Events Currently Available</p>
     </div>
     {% endif %}
 

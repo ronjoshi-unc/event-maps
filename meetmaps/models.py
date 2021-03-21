@@ -32,6 +32,7 @@ class Event(models.Model):
     time = models.DateField()
     location_name = models.CharField(max_length=50, default="")
     description = models.CharField(max_length = 1500)
+    host = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     address = models.TextField(default="")
     location_lat = models.FloatField(blank=True, null=True)
     location_long = models.FloatField(blank=True, null=True)
