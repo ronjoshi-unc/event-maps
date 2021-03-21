@@ -1,0 +1,17 @@
+{% extends 'default.html' %}
+
+{% block pagetitle %}
+	{{ page_title }}
+{% endblock %}
+
+
+{% block content %}
+    <h1>Title: {{event.title}}</h1>
+    <p>Date: {{event.time}}</p>
+    <p>Location: {{event.location_name}}</p>
+    <p>Description: {{event.description}}</p>
+    <p>Address: {{event.address}}</p>
+    <p>Lat/Long: {{event.location_lat}}, {{event.location_long}}</p>
+  <!-- </div> -->
+
+{% endblock %}
