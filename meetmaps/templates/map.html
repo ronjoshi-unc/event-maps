@@ -1,30 +1,81 @@
 {% extends 'default.html'%}
 
 {% block pagetitle %}
-    {{page_title}}
+{{page_title}}
 {% endblock %}
 
 
 {% block content %}
-   <div id='map' style='width: 100%; height: 400px;'></div>
-    <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia21nb3ZpbmQiLCJhIjoiY2ttaHZ2c2k1MGJkaDJ3cW90dzhzcDl3ZyJ9.8gnW35BhS9WSZaCBTOJ1IQ';
-    var map = new mapboxgl.Map({
+<div id='map' style='width: 100%; height: 400px;'></div>
+<script>
+  mapboxgl.accessToken = '{{ mapbox_access_token}}';
+  var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-78.65, 35.85],
     zoom: 9
-    });
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true
-        },
-        trackUserLocation: true
-      })
-    );
+  });
+  map.addControl(
+    new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    })
+  );
+  // Add zoom and rotation controls to the map
+  map.addControl(new mapboxgl.NavigationControl());
 
-    //Add zoom and rotation controls to the map
-    map.addControl(new mapboxgl.NavigationControl());
-    </script>
+  {% for event in events %}
+  var marker = new mapboxgl.Marker()
+    .setLngLat([{{event.location_long}}, {{event.location_lat}}])
+    .setPopup(new mapboxgl.Popup().setHTML("<p>Event Title: {{event.title}}</p><p>Date: {{event.time}}</p><p>Location: {{event.location_name}}</p>"))
+    .addTo(map);
+  {% endfor %}
+</script>
+
+<h1>Events</h1>
+<!-- <fieldset class="form-group position-relative">
+    <input type="text" class="form-control search-product" id="user-input" placeholder="Find a User">
+    <div class="form-control-position">
+        <i id="search-icon" class="feather icon-search"></i>
+    </div>
+</fieldset> -->
+
+<div id="replaceable-content" class="row match-height">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <div class="scrollbox">
+                {{ eventCreationForm.as_p}}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary mr-1 mb-1 waves-effect waves-light" type="submit">Register</button>
+        </div>
+    </form>
+    {% if events %}
+    {% for event in events %}
+    <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
+        <!-- <div class="card" style="height: 329.188px;"> -->
+        <div class="card">
+            <div class="card-content">
+                <div class="card-body text-center">
+                    <p class="">Title: <a href="{% url 'event' event.id %}">{{ event.title }}</a></p>
+                    <p>Date: {{ event.time}}</p>
+                    <p>Location: {{event.location_name}}</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-xl-2 col-md-2 col-sm-2 profile-card-3">
+        <p>Matching event Not Found</p>
+    </div>
+    {% endif %}
+
+
+
 {% endblock %}
