@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from rest_framework import viewsets, permissions
+#from rest_framework import viewsets, permissions
 from django.contrib.auth.models import *
 from django.contrib.auth import update_session_auth_hash
 # from event.serializers import *
@@ -15,8 +15,8 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 
 import eventmaps
-from notifications.signals import notify
-from firebase import firebase
+#from notifications.signals import notify
+#from firebase import firebase
 from django.http import HttpResponse
 import itertools
 import random
@@ -55,7 +55,13 @@ def event(request, id):
     event = Event.objects.get(id=id)
     page_title = Event.title
 
-    context = {'mapbox_access_token': mapbox_access_token, 'page_title' : page_title, 'event' : event}
+    instance = get_object_or_404(Event, id=id)
+    eventDeletionForm = EventDeletionForm(request.POST or None, instance=instance)
+    if eventDeletionForm.is_valid():
+        eventDeletionForm.instance.delete()
+        return redirect('/map')
+
+    context = {'mapbox_access_token': mapbox_access_token, 'page_title' : page_title, 'event' : event, 'eventDeletionForm' : eventDeletionForm}
     return render(request, 'event.html', context)
 
 def register(request):

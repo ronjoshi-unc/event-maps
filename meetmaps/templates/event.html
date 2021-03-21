@@ -1,7 +1,7 @@
 {% extends 'default.html' %}
 
 {% block pagetitle %}
-	{{ page_title }}
+    {{ page_title }}
 {% endblock %}
 
 
@@ -14,5 +14,17 @@
     <p>Lat/Long: {{event.location_lat}}, {{event.location_long}}</p>
     <p>Host: {{event.host}}</p>
   <!-- </div> -->
+
+  {% if user.is_authenticated %}
+    {% if user == event.host.user%}
+    <p>You created this event</p>
+    {% csrf_token %}
+    <div class="form-group">
+      <button type="submit" class="btn btn-sm btn-primary waves-effect waves-light" name="delete{{ signaturedeleteform}}">
+        Delete
+      </button>
+    </div>
+    {% endif %}
+  {% endif %}
 
 {% endblock %}
