@@ -71,7 +71,12 @@
 
   <!-- Webpage Header end -->
   {% if user.is_authenticated %}
+<<<<<<< HEAD
   <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Welcome, {{ user.first_name }}</span><span class="user-status"> {{ user.last_name }}</span></div>
+=======
+
+  <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{ user.first_name }}</span><span class="user-status">{{ user.last_name }}</span></div>
+>>>>>>> 5a44d139a6d07aac9f3691b3ec95b7ecb132e381
   </a>
   <div class="dropdown-menu dropdown-menu-right">
     <!-- <a class="dropdown-item" href="#"><i class="feather icon-mail"></i> My Inbox</a>
@@ -84,6 +89,7 @@
     <div class="user-nav d-sm-flex d-none"><a class="user-name text-bold-600" href= "{% url 'login' %}">Login</a>
     <!-- </a> -->
   {% endif %}
+
 
   <!-- Nest Templates -->
    {% block content %}
