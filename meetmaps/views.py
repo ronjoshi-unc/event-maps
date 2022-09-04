@@ -55,7 +55,13 @@ def event(request, id):
     event = Event.objects.get(id=id)
     page_title = Event.title
 
-    context = {'mapbox_access_token': mapbox_access_token, 'page_title' : page_title, 'event' : event}
+    instance = get_object_or_404(Event, id=id)
+    eventDeletionForm = EventDeletionForm(request.POST or None, instance=instance)
+    if eventDeletionForm.is_valid():
+        eventDeletionForm.instance.delete()
+        return redirect('/map')
+
+    context = {'mapbox_access_token': mapbox_access_token, 'page_title' : page_title, 'event' : event, 'eventDeletionForm' : eventDeletionForm}
     return render(request, 'event.html', context)
 
 def register(request):
